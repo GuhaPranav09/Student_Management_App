@@ -1,0 +1,52 @@
+<div class="box">
+    <div class="container">
+        <div class="form">
+            <h2>Edit Stream</h2>
+            <form #form="ngForm" (ngSubmit)="updateStream(form)" novalidate>
+                <div class="input__box">
+                    <label class="form-label" for="streamName">Stream Name</label>
+                    <input type="text" id="streamName" class="form-control" name="streamName" required
+                        placeholder="Enter Stream Name" [(ngModel)]="stream.streamName" #streamName="ngModel" />
+                    <div *ngIf="
+                      !streamName?.valid &&
+                      (streamName?.dirty || streamName?.touched)
+                    " class="error">
+                        <div *ngIf="streamName.errors?.['required']" class="text-danger">
+                            Stream Name is required
+                        </div>
+                        <div *ngIf="streamName.errors?.['streamName']" class="text-danger">
+                            Invalid Stream Name
+                        </div>
+                    </div>
+                </div>
+                <div class="input__box">
+                    <label for="cmnStatusId" class="form-label">Status</label><br />
+                    <select id="cmnStatusId" class="form-select" name="cmnStatusId" required
+                        [(ngModel)]="stream.cmnStatusId" #cmnStatusId="ngModel"
+                        (change)="changeCmnStatus(cmnStatusId.value)">
+                        <option value="A">ACTIVE</option>
+                        <option value="I">IN-ACTIVE</option>
+                    </select>
+                    <div *ngIf="">
+                        <span class="text-danger">Status is required</span>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col d-flex justify-content-center"></div>
+                    <div class="input__box" style="text-align: center">
+                        <span>
+                            <button type="submit" class="btn btn-warning btn-block mb-4">
+                                Update
+                            </button>
+                        </span>
+                        <span style="padding-left: 20%;">
+                            <button type="button" (click)="goToStreams()" class="btn btn-warning btn-block mb-4">
+                                Cancel
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

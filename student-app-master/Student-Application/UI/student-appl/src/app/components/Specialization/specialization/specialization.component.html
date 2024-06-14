@@ -1,0 +1,46 @@
+<div class="text-center pb-3">
+		<h3 class="headerh3">Specialization</h3>
+</div>
+<div>
+	<button (click)="addSpecialization()" class="btn addbutton btn btn-warning" >Add Specialization</button>
+</div>
+<br>
+<table class="table table-bordered ">
+	<thead>
+		<tr>
+			<th scope="col">#</th>
+			<th scope="col"> Specialization Name</th>
+			<th scope="col"> Status</th>
+			<th scope="col">Stream Name</th>
+			<th scope="col">Action</th> 
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let specialization of specializationsDto; index as i">
+			<th scope="row">{{ i + 1 }}</th>
+			 <td>{{ specialization.specializationName }}</td> 
+			 <td>
+				<span
+				  class="badge"
+				  [ngClass]="[
+					specialization.cmnStatusId == 'A' ? ' text-bg-success' : ' text-bg-danger'
+				  ]"
+				  >{{
+					specialization.cmnStatusId === "A"
+					  ? "ACTIVE"
+					  : specialization.cmnStatusId === "I"
+					  ? "INACTIVE"
+					  : ""
+				  }}</span
+				>
+			  </td>
+             <td>{{ specialization.streamName }}</td>
+			<td>
+				<i (click)="editSpecialization(specialization)" class="bi bi-pencil"></i>
+				<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <!-- Space between icons -->
+				<i (click)="removeSpecialization(specialization.specializationId)" class="bi bi-trash text-danger" *ngIf="specialization.cmnStatusId !== 'I'"></i>
+			</td>
+		</tr>
+	</tbody>
+</table>
+

@@ -1,0 +1,101 @@
+<div class="main-container">
+  <div>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark mainnavbar">
+        <div class="container-fluid">
+          <a class="navbar-brand">{{ "Welcome" + " " + user.name }}</a>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="navbar-nav">
+              <h3 style="color: aliceblue;" >Student Portal</h3>
+            </div>
+            <div class="navbar-nav">
+              <ng-container>
+                <a class="nav-link" (click)="logout()"  style=" cursor: pointer;">Logout</a>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-3">
+        <div class="sidebar">
+          <ul class="nav">
+            <li class="nav-item">
+              <a routerLink="home" routerLinkActive="active">Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a routerLink="student" routerLinkActive="active">Students</a>
+            </li>
+
+            <li class="nav-item" *ngIf="user.role === 'ADMIN'">
+              <a routerLink="users" routerLinkActive="active">Users</a>
+            </li>
+            <li class="nav-item">
+              <a routerLink="report" routerLinkActive="active">Reports</a>
+            </li>
+
+            <li class="nav-item" *ngIf="user.role === 'ADMIN'">
+              <a (click)="expandSettings()" style="  cursor: pointer;">Settings
+                <i class="ms-5" [ngClass]="
+                    isSettingsDisplayed
+                      ? 'bi bi-chevron-down icon '
+                      : 'bi bi-chevron-right icon'
+                  "></i>
+              </a>
+            </li>
+          </ul>
+
+          <ul class="nav">
+            <div class="nav dropdown ms-3 d-flex flex-column" *ngIf="isSettingsDisplayed">
+              <li class="nav-item">
+                <a routerLink="stream" routerLinkActive="active">Stream</a>
+              </li>
+              <li class="nav-item">
+                <a routerLink="specialization" routerLinkActive="active">Specialization</a>
+              </li>
+
+              <li class="nav-item">
+                <a routerLink="email" routerLinkActive="active"> Send Email</a>
+
+              </li>
+
+              <!-- <li class="nav-item">
+                <a routerLink="stdStatus" routerLinkActive="active"
+                  >Student Status</a
+                >
+              </li>
+              <li class="nav-item">
+                <a routerLink="interestedIn" routerLinkActive="active"
+                  >Interested In</a
+                >
+              </li>
+              <li class="nav-item">
+                <a routerLink="cmnStatus" routerLinkActive="active"
+                  >Common Status</a
+                >
+              </li> -->
+
+            </div>
+          </ul>
+        </div>
+      </div>
+
+      <div class="col-9 w-100" style="padding-left: 18%; padding-top: 6%; margin-bottom: 50px">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer d-flex justify-content-center align-items-center text-white footernav" style="height: 50px">
+    PoweredBy&nbsp;
+    <span class="fs-5">
+      <span class="text-success ms-2"> <span>C</span>ore</span>
+      <span class="text-danger"><span>N</span>uts</span>
+    </span>
+    &nbsp; Technologies
+    <span class="mx-5">Copyright &copy; 2024</span>
+  </div>
+</div>

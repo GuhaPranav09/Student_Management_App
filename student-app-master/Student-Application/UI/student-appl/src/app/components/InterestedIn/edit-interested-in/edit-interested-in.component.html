@@ -1,0 +1,58 @@
+<div class="box">
+    <div class="container">
+        <div class="form">
+            <h2>Edit InterestedIn</h2>
+            <form #form="ngForm" (ngSubmit)="updateInterestedIn(form)" novalidate>
+                <div class="input__box">
+                    <label class="form-label" for="interestedInName">InterestedIn Name</label>
+                    <input type="text" id="interestedInName" class="form-control" name="interestedInName" required
+                        placeholder="Enter InterestedIn Name" [(ngModel)]="interestedIn.interestedInName" #interestedInName="ngModel" />
+                    <div *ngIf="
+                      !interestedInName?.valid &&
+                      (interestedInName?.dirty || interestedInName?.touched)
+                    " class="error">
+                        <div *ngIf="interestedInName.errors?.['required']" class="text-danger">
+                            InterestedIn Name is required
+                        </div>
+                        <div *ngIf="interestedInName.errors?.['interestedInName']" class="text-danger">
+                            Invalid InterestedIn Name
+                        </div>
+                    </div>
+                </div>
+                <div class="input__box">
+                    <label for="cmnStatusId" class="form-label">Status</label><br />
+                    <select
+                      id="cmnStatusId"
+                      class="form-select"
+                      name="cmnStatusId"
+                      required
+                      [(ngModel)]="interestedIn.cmnStatusId"
+                      #cmnStatusId="ngModel"
+                      (change)="changeCmnStatus(cmnStatusId.value)"
+                    >
+                      <option value="A">ACTIVE</option>
+                      <option value="I">IN-ACTIVE</option>
+                    </select>
+                    <div *ngIf="">
+                      <span class="text-danger">Status is required</span>
+                    </div>
+                  </div>
+                <div class="row mb-4">
+                    <div class="col d-flex justify-content-center"></div>
+                    <div class="input__box" style="text-align: center">
+                        <span>
+                            <button type="submit" class="btn btn-warning btn-block mb-4">
+                                Update
+                            </button>
+                        </span>
+                        <span style="padding-left: 20%;">
+                            <button type="button" (click)="goToInterestedIns()" class="btn btn-danger btn-block mb-4">
+                                Cancel
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

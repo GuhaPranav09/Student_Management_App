@@ -1,0 +1,113 @@
+<div class="text-center pb-3">
+  <h2 class="headerh3" style="font-size: x-large;">Users</h2>
+</div>
+<!-- <div class="search">
+  <div>
+    <button (click)="addUser()" class="btn addbutton">Add User</button>
+  </div>
+
+  <div class="input-group" style=" margin-left: 65%;">
+    <div class="form-outline" style="margin-right: 20px">
+      <input type="search" id="form1" class="form-control" [(ngModel)]="name" placeholder="Enter user name" />
+    </div>
+    <button type="button" (click)="getUsersBystdName()" class="btn btn-primary">
+      <i class="bi bi-search"></i>
+    </button>
+  </div>
+</div> -->
+<div style="display: flex">
+  <div class="col-4">
+    <button (click)="addUser()" class="btn addbutton btn btn-warning ">Add User</button>
+  </div>
+  <div class="input-group" style="margin-left: 35%;">
+    <div class="form-outline" style="margin-right: 20px">
+      <input type="search" id="form1" class="form-control" [(ngModel)]="name" placeholder="Enter user name" />
+    </div>
+    <button type="button" (click)="getUsersByName()" class="btn btn-warning ">
+      <i class="bi bi-search"></i>
+    </button>
+  </div>
+
+</div>
+<br />
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">NAME</th>
+      <th scope="col">Email</th>
+      <th scope="col">Contact</th>
+
+      <th scope="col">Is Admin</th>
+      <th scope="col">Status</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users; index as i">
+      <th scope="row">{{ i + 1 }}</th>
+      <td>{{ user.name }}</td>
+      <td>{{ user.userEmail }}</td>
+      <td>{{ user.userContact }}</td>
+
+      <td>
+        <span class="badge" [ngClass]="[
+            user.isAdmin === 'Y' ? ' text-bg-warning' : ' text-bg-primary'
+          ]">{{
+          user.isAdmin === "Y" ? "YES" : user.isAdmin === "N" ? "NO" : ""
+          }}</span>
+      </td>
+      <td>
+        <span class="badge" [ngClass]="[
+            user.cmnStatusId == 'A' ? ' text-bg-success' : ' text-bg-danger'
+          ]">{{
+          user.cmnStatusId === "A"
+          ? "ACTIVE"
+          : user.cmnStatusId === "I"
+          ? "INACTIVE"
+          : ""
+          }}</span>
+      </td>
+      <td>
+        <i (click)="editUser(user)" class="bi bi-pencil"></i>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <!-- Space between icons -->
+        <i (click)="removeUser(user.userId)" class="bi bi-trash text-danger" *ngIf="user.cmnStatusId !== 'I'"></i>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<nav aria-label="..." *ngIf="flag">
+  <ul class="pagination justify-content-end">
+    <li class="page-item pointer">
+      <!-- <select (change)="printSize($event)" class="page-link" [(ngModel)]="size" style="z-index: 0;">
+        <option
+          *ngFor="let pageNo of pageSizes"
+          name="size"
+          [selected]="pageNo === size"
+          [value]="pageNo"
+        >
+          {{ pageNo }}
+        </option>
+      </select> -->
+      <span (change)="printSize($event)" class="page-link" [(ngModel)]="size"
+        style=" cursor: pointer;">{{pageSizes}}</span>
+    </li>
+    <li class="page-item pointer" [ngClass]="first ? ' disabled' : ''">
+      <a (click)="goToNextOrPreviousr('backward')" class="page-link" style=" cursor: pointer;">
+        <span aria-hidden="true">&laquo;</span>
+        Previous
+      </a>
+    </li>
+    <li *ngFor="let no of [].constructor(totalPages); index as i" class="page-item pointer" style="z-index:0;"
+      [ngClass]="i === page ? ' active active-index' : ''">
+      <a (click)="goToPage(i)" class="page-link" style=" cursor: pointer;">{{ i + 1 }}</a>
+    </li>
+
+    <li class="page-item pointer" [ngClass]="last ? ' disabled' : ''">
+      <a (click)="goToNextOrPreviousr('forward')" class="page-link" style=" cursor: pointer;">Next
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>

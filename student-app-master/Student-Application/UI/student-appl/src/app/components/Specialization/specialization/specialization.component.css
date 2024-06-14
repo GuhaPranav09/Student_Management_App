@@ -1,0 +1,25 @@
+
+.table-bordered{
+    border: 2px solid #dee2e6;
+}
+
+.table-bordered thead tr th
+ {
+    border: 1px solid #dee2e6;
+    padding: 8px;
+    text-align: left;
+    background-color: #009DDA; 
+    color: #dee2e6;
+}
+.addbutton{
+    /* background-color: #008DDA;  */
+    color: black;
+
+}
+
+.headerh3{
+ 
+    color: #008DDA;
+
+}
+

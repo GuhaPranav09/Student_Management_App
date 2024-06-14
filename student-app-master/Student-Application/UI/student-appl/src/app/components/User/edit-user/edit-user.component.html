@@ -1,0 +1,171 @@
+<div class="box">
+  <div class="container">
+    <div class="form">
+      <h2 class="text-center">Update User</h2>
+      <form #form="ngForm" (ngSubmit)="updateUser(form)">
+        <div class="input__box">
+          <!-- UserName input -->
+          <label class="form-label" for="name">User Name</label>
+          <input
+            type="text"
+            id="name"
+            class="form-control"
+            name="name"
+            required
+            placeholder="enter user name"
+            [(ngModel)]="user.name"
+            #name="ngModel"
+          />
+          <div
+            *ngIf="!name?.valid && (name?.dirty || name?.touched)"
+            class="error"
+          >
+            <div *ngIf="name.errors?.['required']" class="text-danger">
+              User Name is required
+            </div>
+          </div>
+        </div>
+        <div class="input__box">
+          <label class="form-label" for="userEmail">Email</label>
+          <input
+            type="email"
+            id="email"
+            class="form-control"
+            name="userEmail"
+            required
+            placeholder="enter email"
+            [(ngModel)]="user.userEmail"
+            #userEmail="ngModel"
+            email="true"
+          />
+          <div
+            *ngIf="
+              !userEmail?.valid && (userEmail?.dirty || userEmail?.touched)
+            "
+            class="error"
+          >
+            <div *ngIf="userEmail.errors?.['required']" class="text-danger">
+              User Email required
+            </div>
+            <div
+              *ngIf="userEmail.errors?.['userEmail'] || userEmail.invalid"
+              class="text-danger"
+            >
+              Invalid Email
+            </div>
+          </div>
+        </div>
+        <div class="input__box">
+          <label class="form-label" for="userContact">Contact Number</label>
+          <input
+            type="text"
+            id="userContact"
+            class="form-control"
+            name="userContact"
+            required
+            placeholder="enter contact number"
+            [(ngModel)]="user.userContact"
+            #userContact="ngModel"
+            pattern="\d{10}"
+          />
+          <div
+            *ngIf="
+              !userContact?.valid &&
+              (userContact?.dirty || userContact?.touched)
+            "
+            class="error"
+          >
+            <div *ngIf="userContact.errors?.['required']" class="text-danger">
+              Contact Number is required
+            </div>
+            <div *ngIf="userContact.errors?.['pattern']" class="text-danger">
+              Contact Number should be 10 digits
+            </div>
+            <div
+              *ngIf="userContact.errors?.['userContact']"
+              class="text-danger"
+            >
+              Invalid Contact Number
+            </div>
+          </div>
+        </div>
+        <div class="input__box">
+          <label for="cmnStatusId" class="form-label">Status</label><br />
+          <select
+            id="cmnStatusId"
+            class="form-select"
+            name="cmnStatusId"
+            required
+            [(ngModel)]="user.cmnStatusId"
+            #cmnStatusId="ngModel"
+            (change)="changeCmnStatus(cmnStatusId.value)"
+          >
+            <option value="A">ACTIVE</option>
+            <option value="I">IN-ACTIVE</option>
+          </select>
+          <div *ngIf="">
+            <span class="text-danger">Status is required</span>
+          </div>
+        </div>
+        <div class="form-check form-switch mt-2">
+          <input
+            type="checkbox"
+            id="isAdmin"
+            class="form-check-input"
+            name="isAdmin"
+            (change)="isAdmin()"
+            [checked]="user.isAdmin === 'Y'"
+          />
+          <label class="form-check-label ms-2" for="isAdmin"> IsAdmin </label>
+        </div>
+        <!-- <div class="form-check form-switch mt-2">
+          <input
+            type="checkbox"
+            id="cmnStatusId"
+            class="form-check-input"
+            name="cmnStatusId"
+            (change)="changeStatus()"
+            [checked]="user.cmnStatusId === 'A'"
+          />
+          <label class="form-check-label ms-2" for="cmnStatusId">
+            Active
+          </label>
+        </div> -->
+        <div class="row mb-4">
+          <div class="col d-flex justify-content-center"></div>
+          <div  class="input__box d-flex" style="text-align: center;">
+            <span style="margin-left: 20%;">
+              <button
+                type="submit"
+                class="btn btn-warning btn-block mb-4 w-100 " 
+                [disabled]="
+                  !form.touched && isAdminChanged && isCmnStatusChanged
+                "
+              >
+                Update
+              </button>
+            </span>
+            <span style="margin-left: 20%;">
+              <button
+          type="reset"
+          (click)="goToUsers()"
+          class="btn btn-warning btn-block mb-4 w-100"
+        >
+          Cancel
+        </button>
+            </span>
+          </div>
+        </div>
+      </form>
+      <!-- <div class="input__box" style="text-align: center">
+        <button
+          type="reset"
+          (click)="goToUsers()"
+          class="btn btn-warning btn-block mb-4 w-50"
+        >
+          Cancel
+        </button>
+      </div> -->
+    </div>
+  </div>
+</div>

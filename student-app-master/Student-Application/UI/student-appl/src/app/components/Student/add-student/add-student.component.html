@@ -1,0 +1,230 @@
+
+<div class="box">
+  <div class="container">
+    <div class="form">
+      <h2 class="text-center">Add Student</h2>
+      <form #form="ngForm" (ngSubmit)="addStudent(form)" novalidate>
+        <h4>Student Info</h4>
+        <div class="row fieldset">
+          <div class="input__box col-6">
+            <label class="form-label" for="form2Example1">Name<span style="color: red;"> * </span></label>
+            <input type="text" id="stdName" class="form-control" name="stdName" required
+              placeholder="Enter Student Name" [(ngModel)]="student.stdName" #stdName="ngModel" />
+            <div *ngIf="!stdName?.valid && (stdName?.dirty || stdName?.touched)" class="error">
+              <div *ngIf="stdName.errors?.['required']" class="text-danger">
+                Student Name is required
+              </div>
+              <div *ngIf="stdName.errors?.['stdName']" class="text-danger">
+                Invalid Student Name
+              </div>
+            </div>
+          </div>
+          <div class="input__box col-6">
+            <label class="form-label" for="form2Example1">Email<span style="color: red;"> * </span></label>
+            <input type="text" id="email" class="form-control" name="email" required placeholder="Enter Email"
+              [(ngModel)]="student.email" #email="ngModel" />
+            <div *ngIf="!email?.valid && (email?.dirty || email?.touched)" class="error">
+              <div *ngIf="email.errors?.['required']" class="text-danger">
+                Email is required
+              </div>
+              <div *ngIf="email.errors?.['email']" class="text-danger">
+                Invalid Email
+              </div>
+            </div>
+          </div>
+          <div class="input__box col-6">
+            <label class="form-label col-4" for="form2Example1">Contact<span style="color: red;"> * </span></label>
+            <input type="tel" id="contactNo" class="form-control" name="contactNo" required
+              placeholder="Enter Contact No" [(ngModel)]="student.contactNo" #contactNoModel="ngModel"
+              pattern="[6-9][0-9]{9}" maxlength="10" />
+
+
+            <div *ngIf="contactNoModel.invalid && (contactNoModel.dirty || contactNoModel.touched)" class="error">
+              <div *ngIf="contactNoModel.errors?.['required']" class="text-danger">
+                Contact No is required
+              </div>
+              <div *ngIf="contactNoModel.errors?.['pattern']" class="text-danger">
+                Invalid contact No. Please enter a 10-digit phone number starting with a digit between 6 and 9.
+              </div>
+            </div>
+          </div>
+
+
+
+          <div class="input__box col-6">
+            <label class="form-label" for="form2Example1">Address<span style="color: red;"> * </span> </label>
+            <input type="text" id="address" class="form-control" name="address" required placeholder="Enter Address "
+              [(ngModel)]="student.address" #address="ngModel" />
+            <div *ngIf="!address?.valid && (address?.dirty || address?.touched)" class="error">
+              <div *ngIf="address.errors?.['required']" class="text-danger">
+                Address is required
+              </div>
+              <div *ngIf="address.errors?.['address']" class="text-danger">
+                Invalid Address
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h4 class="my-2">Education</h4>
+        <div class="row fieldset">
+          <div class="input__box col-6">
+            <label for="streamId" class="form-label">Stream<span style="color: red;"> * </span> </label><br />
+            <select id="streamId" class="form-select" name="streamId" required [(ngModel)]="student.streamId"
+              #streamId="ngModel" (change)="streamChange()">
+              <option value="0">select</option>
+              <option *ngFor="let stream of streams" [value]="stream.streamId">
+                {{ stream.streamName }}
+              </option>
+            </select>
+            <div *ngIf="">
+              <span class="text-danger">Stream is required</span>
+            </div>
+          </div>
+
+          <div class="input__box col-6">
+
+            <label for="streamId" class="form-label">Specialization</label><br />
+            <select id="specializationId" class="form-select" name="specializationId"
+              [(ngModel)]="student.specializationId" #specializationId="ngModel" [disabled]="!student.streamId"
+              (ngModelChange)="student.specializationId = ($event === null ? 0 : $event)">
+              <option value="0">select</option>
+              <option *ngFor="let specialization of specializations" [value]="specialization.specializationId">
+
+                {{ specialization.specializationName }}
+              </option>
+            </select>
+
+          </div>
+          <div class="input__box col-6">
+            <label class="form-label" for="form2Example1">Year Of Pass<span style="color: red;"> * </span></label>
+            <input type="text" id="yop" class="form-control" name="yop" required placeholder="Enter year of pass"
+              [(ngModel)]="student.yop" #yop="ngModel" />
+            <div *ngIf="!yop?.valid && (yop?.dirty || yop?.touched)" class="error">
+              <div *ngIf="yop.errors?.['required']" class="text-danger">
+                Year Of Pass is required
+              </div>
+            </div>
+          </div>
+          <div class="input__box col-6">
+            <label class="form-label" for="form2Example1">Qual Percentage<span style="color: red;"> * </span></label>
+            <input type="text" id="qualPercentage" class="form-control" name="qualPercentage" required
+              placeholder="Enter Qual Percentage" [(ngModel)]="student.qualPercentage" #qualPercentage="ngModel" />
+            <div *ngIf="
+                !qualPercentage?.valid &&
+                (qualPercentage?.dirty || qualPercentage?.touched)
+              " class="error">
+              <div *ngIf="qualPercentage.errors?.['required']" class="text-danger">
+                Qual Percentage is required
+              </div>
+              <div *ngIf="qualPercentage.errors?.['qualPercentage']" class="text-danger">
+                Invalid Qual Percentage
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row fieldset">
+          <div class="input__box col-6">
+            <label for="streamId" class="form-label">Reffered By</label><br />
+            <select id="referedBy" class="form-select" name="referedBy" [(ngModel)]="student.referedBy"
+              #referedBy="ngModel">
+              <option value="0">select</option>
+              <option value="Kiran">Kiran</option>
+              <option value="Harish">Harish</option>
+              <option value="Lokesh">Lokesh</option>
+            </select>
+          </div>
+
+
+          <div class="input__box col-6">
+            <label for="streamId" class="form-label">Interested In<span style="color: red;"> * </span></label><br />
+            <select id="stdStatusId" class="form-select" name="stdStatusId" required
+              [(ngModel)]="student.interestedInId" #stdStatusId="ngModel">
+              <option value="0">select</option>
+              <option *ngFor="let interested of interestedIn" [value]="interested.interestedInId">
+                {{ interested.interestedInName }}
+              </option>
+            </select>
+            <div *ngIf="">
+              <span class="text-danger">interestedIn is required</span>
+            </div>
+          </div>
+          <div class="input__box col-6">
+            <label class="form-label" for="form2Example1">Amount Paid</label>
+            <input type="text" id="amountPaid" class="form-control" name="amountPaid" required
+              placeholder="Enter Amount " [(ngModel)]="student.amountPaid" #amountPaid="ngModel" />
+            <div *ngIf="
+                !amountPaid?.valid && (amountPaid?.dirty || amountPaid?.touched)
+              " class="error">
+              <div *ngIf="amountPaid.errors?.['required']" class="text-danger">
+                Amount is required
+              </div>
+              <div *ngIf="amountPaid.errors?.['amountPaid']" class="text-danger">
+                Invalid Amount
+              </div>
+            </div>
+          </div>
+
+          <!-- <div class="input__box col-6">
+            <label for="streamId" class="form-label">Status</label><br />
+            <select
+              id="stdStatusId"
+              class="form-select"
+              name="stdStatusId"
+              required
+              [(ngModel)]="student.stdStatusId"
+              #stdStatusId="ngModel"
+            >
+              <option
+                *ngFor="let status of stdStatus"
+                [value]="status.stdStatusId"
+              >
+                {{ status.stdStatusName }}
+              </option>
+            </select>
+            <div *ngIf="">
+              <span class="text-danger">Status is required</span>
+            </div>
+          </div> -->
+        </div>
+        <div class="row mb-4">
+          <div class="col d-flex justify-content-center"></div>
+          <div class="input__box" style="text-align: center">
+            <span>
+              <button [disabled]="!form.dirty" type="submit" class="btn btn-warning btn-block mb-4">
+                Save <div class="spinner-border" role="status" *ngIf="isLoading"
+                  style="display: inline-block;width: 20px; height: 20px;">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+              </button>
+
+            </span>
+            <span style="padding-left: 10%">
+              <button type="reset" class="btn btn-warning btn-block mb-4">
+                reset
+              </button>
+            </span>
+            <!-- <div class="input__box" style="text-align: center"> -->
+            <span style="padding-left: 10%">
+              <button type="reset" (click)="gotoStudents()" class="btn btn-warning btn-block mb-4">
+                Back to Students
+              </button>
+            </span>
+            <!-- </div> -->
+          </div>
+
+        </div>
+      </form>
+      <!-- <div class="input__box" style="text-align: center">
+        <button
+          type="reset"
+          (click)="gotoStudents()"
+          class="btn btn-warning btn-block mb-4"
+        >
+          Back to Students
+        </button>
+      </div> -->
+    </div>
+  </div>
+</div>

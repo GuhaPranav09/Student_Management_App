@@ -1,0 +1,51 @@
+<div class="div">
+  <div [formGroup]="searchForm">
+    <label for="startDate">Start Date:</label>
+    <input type="date" id="startDate" formControlName="startDate" name="startDate"  />
+
+
+    <!-- <div *ngIf="searchForm.get('startDate')?.touched" class="text-danger">
+      Please choose start date
+    </div> -->
+
+    <label for="endDate">End Date:</label>
+    <input type="date" id="endDate" formControlName="endDate" name="endDate" required />
+  </div>
+
+  <div>
+    <button type="button" (click)="filterData()" class="btn btn-warning ">
+      <i class="bi bi-search"></i>
+    </button>
+  </div>
+</div>
+
+<table class="table table-bordered tablefont">
+  <thead>
+    <tr class="text-center">
+      <th scope="col">#</th>
+      <th scope="col">Student Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Contact</th>
+      <th scope="col">Stream</th>
+      <th scope="col">Specialization</th>
+      <th scope="col">Reffered By</th>
+      <th scope="col">Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let student of students; index as i">
+      <th scope="row">{{ i + 1 }}</th>
+      <td>{{ student.stdName }}</td>
+      <td>{{ student.email }}</td>
+      <td>{{ student.contactNo }}</td>
+      <td>{{ student.streamName }}</td>
+      <td>{{ student.specializationName }}</td>
+      <td>{{ student.referedBy }}</td>
+      <td>{{ student.stdStatusName }}</td>
+      <!--start-->
+    </tr>
+  </tbody>
+</table>
+<button class="btn btn-warning  float-end" [disabled]="isRecordsShown" (click)="onClickGenerateExcel()">
+  Download
+</button>

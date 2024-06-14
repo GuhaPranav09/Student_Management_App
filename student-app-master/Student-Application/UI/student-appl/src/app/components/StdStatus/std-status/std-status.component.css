@@ -1,0 +1,11 @@
+.table-bordered{
+    border: 2px solid #dee2e6;
+}
+
+.table-bordered thead tr th
+ {
+    border: 1px solid #dee2e6;
+    padding: 8px;
+    text-align: left;
+    background-color: #8c8f92;
+}

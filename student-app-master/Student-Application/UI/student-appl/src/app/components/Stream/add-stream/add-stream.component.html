@@ -1,0 +1,75 @@
+<div class="box" >
+    <div class="container">
+      <div class="form">
+        <h2>Add Stream</h2>
+        <form #form="ngForm" (ngSubmit)="addStream(form)" novalidate>
+          <div class="input__box">
+            <!-- UserName input -->
+            <label class="form-label" for="form2Example1">Stream Name</label>
+            <input
+              type="text"
+              id="streamName"
+              class="form-control"
+              name="streamName"
+              required
+              placeholder="Enter Stream Name"
+              [(ngModel)]="stream.streamName"
+              #streamName="ngModel"
+            />
+            <div
+              *ngIf="
+                !streamName?.valid &&
+                (streamName?.dirty || streamName?.touched)
+              "
+              class="error"
+            >
+              <div *ngIf="streamName.errors?.['required']" class="text-danger">
+                Stream Name is required
+              </div>
+              <div
+                *ngIf="streamName.errors?.['streamName']"
+                class="text-danger"
+              >
+                Invalid Stream Name
+              </div>
+            </div>
+          </div>
+
+          <div class="row mb-4">
+            <div class="col d-flex justify-content-center"></div>
+            <div class="input__box" style="text-align: center">
+              <span>
+                <button type="submit" class="btn btn-warning btn-block mb-4">
+                  Save
+                </button>
+              </span>
+              <span style="padding-left: 10%">
+                <button type="reset" class="btn btn-warning btn-block mb-4">
+                  reset
+                </button>
+              </span>
+              <span style="padding-left: 10%">
+                <button
+            type="reset"
+            (click)="gotoStreams()"
+            class="btn btn-warning btn-block mb-4"
+          >
+            Back to Streams
+          </button>
+              </span>
+            </div>
+          </div>
+        </form>
+        <!-- <div class="input__box" style="text-align: center">
+          <button
+            type="reset"
+            (click)="gotoStreams()"
+            class="btn btn-success btn-block mb-4"
+          >
+            Back to Streams
+          </button>
+        </div> -->
+      </div>
+    </div>
+  </div>
+  

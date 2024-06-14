@@ -1,0 +1,103 @@
+.sidebar {
+  position: fixed;
+  top: 59px; /* Adjust to match your navbar height */
+  left: 0;
+  width: 250px;
+  height: 100%;
+  background-color: RGBA(var(--bs-warning-rgb), var(--bs-bg-opacity, 1)) !important; 
+  color: #fff;
+}
+
+.mainnavbar{
+  background-color: #008DDA; 
+
+}
+.footernav{
+  background-color: #008DDA; 
+}
+
+.sidebar-header {
+  padding: 20px;
+}
+
+.dashboard {
+  padding: 20px;
+  background-color: #b25c5c; /* Adjust the background color for the dashboard */
+}
+
+.nav {
+  list-style: none;
+  padding: 0;
+}
+
+.nav-item {
+  padding: 10px 20px;
+}
+
+.nav-item a {
+  color: #fff;
+  text-decoration: none;
+  display: block;
+  font-size: 20px;
+}
+.nav-item a {
+  color: #000;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.nav-item a.active {
+  background-color: #008DDA; /* Apply background color on hover and active states */
+  color: #161819;
+  /* padding: 2px; */
+  /* border-radius: 5px; */
+ 
+  
+}
+
+ul {
+  display: inline;
+}
+
+.navbar-brand {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  /* font-weight: 500; */
+}
+
+.navbar-nav .nav-link {
+  font-size: 18px;
+  margin-right: 15px;
+  padding-right: 30px;
+  color:#fff;
+}
+
+.icons span {
+  margin-right: 25px;
+  font-size: 24px;
+}
+
+.navbar-nav {
+  margin-left: auto;
+}
+
+header {
+  margin-bottom: 30px;
+  width: 100%;
+  position: fixed;
+  z-index: 1;
+}
+.main-content {
+  position: relative;
+  top: 100px;
+}
+.footer {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}
+.icon {
+  font-size: medium;
+}

@@ -1,0 +1,58 @@
+<div class="text-center pb-3">
+	<h3>Student Status</h3>
+</div>
+<div>
+	<button (click)="addStdStatus()" class="btn btn-primary">
+		Add StdStatus
+	</button>
+</div>
+<br />
+<table class="table table-bordered">
+
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">STUDENT STATUS</th>
+      <th scope="col">STATUS NAME</th>
+      <th scope="col">COMMON STATUS</th>
+      <th scope="col">ACTIONS</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let status of stdStatus; index as i">
+      <th scope="row">{{ i + 1 }}</th>
+      <td>{{ status.stdStatusId }}</td>
+      <td>{{ status.stdStatusName }}</td>
+      <td>
+        <span
+          class="badge"
+          [ngClass]="[
+            status.cmnStatus == 'A' ? ' text-bg-success' : ' text-bg-danger'
+          ]"
+          >{{
+            status.cmnStatus === "A"
+              ? "ACTIVE"
+              : status.cmnStatus === "I"
+              ? "INACTIVE"
+              : ""
+          }}</span
+        >
+      </td>
+
+      <!--start-->
+      <td>
+        <i (click)="editStdStatus(status)" class="bi bi-pencil"></i>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <!-- Space between icons -->
+        <i
+          (click)="removeStdStatus(status.stdStatusId)"
+          class="bi bi-trash text-danger"
+          *ngIf="status.cmnStatus !== 'I'"
+        ></i>
+      </td>
+    </tr>
+  </tbody>
+
+	
+</table>
+

@@ -1,0 +1,80 @@
+<div class="box">
+    <div class="container">
+        <div class="form">
+            <h2>Edit StdStatus</h2>
+            <form #form="ngForm" (ngSubmit)="updateStdStatus(form)" novalidate>
+                <div class="input__box">
+                    <label class="form-label" for="stdStatusId">StdStatus Name</label>
+                    <input type="text" id="stdStatusId" class="form-control" name="stdStatusId" required
+                        placeholder="Enter stdStatusId Name" [(ngModel)]="stdStatus.stdStatusId"
+                        #stdStatusId="ngModel" />
+                    <div *ngIf="
+                      !stdStatusId?.valid &&
+                      (stdStatusId?.dirty || stdStatusId?.touched)
+                    " class="error">
+                        <div *ngIf="stdStatusId.errors?.['required']" class="text-danger">
+                            stdStatusId is required
+                        </div>
+                        <div *ngIf="stdStatusId.errors?.['stdStatusName']" class="text-danger">
+                            Invalid stdStatusId
+                        </div>
+                    </div>
+                </div>
+                <div class="input__box">
+                    <label class="form-label" for="groupContactNumber">Status Name</label>
+                    <input type="text" id="cmnStatusId" class="form-control" name="cmnStatusId" required
+                        placeholder="Enter StatusName Status " [(ngModel)]="stdStatus.stdStatusName"
+                        #stdStatusName="ngModel" />
+                    <div *ngIf="
+                      !stdStatusName?.valid &&
+                      (stdStatusName?.dirty || stdStatusName?.touched)
+                    " class="error">
+                        <div *ngIf="stdStatusName.errors?.['required']" class="text-danger">
+                            Common Status is required
+                        </div>
+                        <div *ngIf="stdStatusName.errors?.['stdStatusName']" class="text-danger">
+                            Invalid Common Status
+                        </div>
+                    </div>
+                </div>
+
+            
+                <div class="input__box">
+                    <label for="cmnStatus" class="form-label">Common Status</label><br />
+                    <select
+                      id="cmnStatus"
+                      class="form-select"
+                      name="cmnStatus"
+                      required
+                      [(ngModel)]="stdStatus.cmnStatus"
+                      #cmnStatus="ngModel"
+                      (change)="changeCmnStatus(cmnStatus.value)"
+                    >
+                      <option value="A">ACTIVE</option>
+                      <option value="I">IN-ACTIVE</option>
+                    </select>
+                    <div *ngIf="">
+                      <span class="text-danger">Status is required</span>
+                    </div>
+                  </div>
+
+
+                <div class="row mb-4">
+                    <div class="col d-flex justify-content-center"></div>
+                    <div class="input__box" style="text-align: center">
+                        <span>
+                            <button type="submit" class="btn btn-warning btn-block mb-4">
+                                Update
+                            </button>
+                        </span>
+                        <span style="padding-left: 20%;">
+                            <button type="button" (click)="goToStdStatuss()" class="btn btn-danger btn-block mb-4">
+                                Cancel
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

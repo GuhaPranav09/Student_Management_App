@@ -1,0 +1,104 @@
+<div class="box" >
+    <div class="container">
+      <div class="form">
+        <h2>Add Student Status</h2>
+        <form #form="ngForm" (ngSubmit)="addStdStatus(form)" novalidate>
+          <div class="input__box">
+            <!-- UserName input -->
+            <label class="form-label" for="form2Example1">Student Status ID</label>
+            <input
+              type="text"
+              id="stdStatusId"
+              class="form-control"
+              name="stdStatusId"
+              required
+              placeholder="Enter StdStatus Id"
+              [(ngModel)]="stdstatus.stdStatusId"
+              #stdStatusId="ngModel"
+            />
+            <div
+              *ngIf="
+                !stdStatusId?.valid &&
+                (stdStatusId?.dirty || stdStatusId?.touched)
+              "
+              class="error"
+            >
+              <div *ngIf="stdStatusId.errors?.['required']" class="text-danger">
+                StdStatus Id is required
+              </div>
+              <div
+                *ngIf="stdStatusId.errors?.['stdStatusId']"
+                class="text-danger"
+              >
+                Invalid StdStatus Id
+              </div>
+            </div>
+          </div>
+
+          <div class="input__box">
+            <!-- UserName input -->
+            <label class="form-label" for="form2Example1">Student status Name</label>
+            <input
+              type="text"
+              id="stdstatusName"
+              class="form-control"
+              name="stdstatusName"
+              required
+              placeholder="Enter StdStatus Name"
+              [(ngModel)]="stdstatus.stdStatusName"
+              #stdstatusName="ngModel"
+            />
+            <div
+              *ngIf="
+                !stdstatusName?.valid &&
+                (stdstatusName?.dirty || stdstatusName?.touched)
+              "
+              class="error"
+            >
+              <div *ngIf="stdstatusName.errors?.['required']" class="text-danger">
+                StdStatus Name is required
+              </div>
+              <div
+                *ngIf="stdstatusName.errors?.['stdstatusName']"
+                class="text-danger"
+              >
+                Invalid Student Status Name
+              </div>
+            </div>
+          </div>
+
+
+          
+               
+
+          
+    
+          <div class="row mb-4">
+            <div class="col d-flex justify-content-center"></div>
+            <div class="input__box" style="text-align: center">
+              <span>
+                <button type="submit" class="btn btn-warning btn-block mb-4">
+                  Save
+                </button>
+              </span>
+              <span style="padding-left: 20%">
+                <button type="reset" class="btn btn-warning btn-block mb-4">
+                  reset
+                </button>
+              </span>
+            </div>
+          </div>
+        </form>
+        <div class="input__box" style="text-align: center">
+          <button
+            type="reset"
+            (click)="gotoStdStatus()"
+            class="btn btn-success btn-block mb-4"
+          >
+            Back to StdStatus
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,97 @@
+<div class="text-center pb-3">
+  <h3 class="headerh3" style="font-size: x-large;">Students</h3>
+</div>
+<div style="display: flex">
+  <div class="col-4" *ngIf="user.role === 'ADMIN'">
+    <button (click)="addStudent()" class="btn addbutton btn btn-warning ">Add Student</button>
+  </div>
+  <div class="input-group">
+    <div class="form-outline" style="margin-right: 20px">
+      <input type="search" id="form1" class="form-control" [(ngModel)]="studentName" placeholder="Enter student name" />
+    </div>
+    <button type="button" (click)="getStudentsBystdName()" class="btn btn-warning ">
+      <i class="bi bi-search"></i>
+    </button>
+  </div>
+  <div class="input-group">
+    <div class="form-outline" style="margin-right: 20px">
+      <input type="search" id="form1" class="form-control" [(ngModel)]="referName" placeholder="Enter ReferedName" />
+    </div>
+    <button type="button" (click)="getStudentsByReferName()" class="btn btn-warning ">
+      <i class="bi bi-search"></i>
+    </button>
+  </div>
+</div>
+<br />
+<table class="table table-bordered tablefont">
+  <thead>
+    <tr class="text-center">
+      <th scope="col">#</th>
+      <th scope="col">Student Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Contact</th>
+      <th scope="col">Stream</th>
+      <th scope="col">Specialization</th>
+      <th scope="col">Reffered By</th>
+      <th scope="col">Status</th>
+      <th scope="col">Date Of Join</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let student of students; index as i">
+      <th scope="row">{{ i + 1 }}</th>
+      <td>{{ student.stdName }}</td>
+      <td>{{ student.email }}</td>
+      <td>{{ student.contactNo }}</td>
+      <td>{{ student.streamName }}</td>
+      <td>{{ student.specializationName }}</td>
+      <td>{{ student.referedBy }}</td>
+      <td>{{ student.stdStatusName }}</td>
+      <td>{{ student.dateOfJoin | date : "dd-MMM-yyyy" }}</td>
+
+      <!--start-->
+      <td>
+        <i (click)="editStudent(student)" class="bi bi-pencil"></i>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <!-- Space between icons -->
+
+        <i *ngIf="user.role === 'ADMIN'" (click)="removeStudent(student.stdId)" class="bi bi-trash text-danger"></i>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<nav aria-label="..." *ngIf="flag">
+  <ul class="pagination justify-content-end">
+    <li class="page-item pointer">
+      <!-- <select (change)="printSize($event)" class="page-link" [(ngModel)]="size">
+        <option
+          *ngFor="let pageNo of pageSizes"
+          name="size"
+          [selected]="pageNo === size"
+          [value]="pageNo"
+        >
+          {{ pageNo }}
+        </option>
+      </select> -->
+      <span (change)="printSize($event)" class="page-link" [(ngModel)]="size"
+        style=" cursor: pointer;">{{pageSizes}}</span>
+    </li>
+    <li class="page-item pointer" [ngClass]="first ? ' disabled' : ''">
+      <a (click)="goToNextOrPreviousr('backward')" class="page-link" style=" cursor: pointer;">
+        <span aria-hidden="true">&laquo;</span>
+        Previous
+      </a>
+    </li>
+    <li *ngFor="let no of [].constructor(totalPages); index as i" class="page-item pointer" style="z-index:0;"
+      [ngClass]="i === page ? ' active active-index' : ''">
+      <a (click)="goToPage(i)" class="page-link" style=" cursor: pointer;">{{ i + 1 }}</a>
+    </li>
+
+    <li class="page-item pointer" [ngClass]="last ? ' disabled' : ''">
+      <a (click)="goToNextOrPreviousr('forward')" class="page-link" style=" cursor: pointer;">Next
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>

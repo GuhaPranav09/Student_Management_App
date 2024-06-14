@@ -1,0 +1,89 @@
+<div class="box">
+    <div class="container">
+        <div class="form">
+            <h2>Edit Specialization</h2>
+            <form #form="ngForm" (ngSubmit)="updateSpecialization(form)" novalidate>
+                <div class="input__box">
+                    <label class="form-label" for="groupContactNumber">Stream Name</label>
+                    <input type="text" id="streamId" class="form-control" name="streamId" required
+                        placeholder="Enter streamId" [(ngModel)]="specialization.streamName" #streamId="ngModel"
+                        readonly />
+                    <div *ngIf="
+                        !streamId?.valid &&
+                        (streamId?.dirty || streamId?.touched)
+                    " class="error">
+                        <div *ngIf="streamId.errors?.['required']" class="text-danger">
+                            streamId is required
+                        </div>
+                        <div *ngIf="cmnStatusId.errors?.['streamId']" class="text-danger">
+                            Invalid streamId
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input__box">
+                    <label class="form-label" for="specializationName">Specialization Name</label>
+                    <input type="text" id="specializationName" class="form-control" name="specializationName" required
+                        placeholder="Enter Specialization Name" [(ngModel)]="specialization.specializationName"
+                        #specializationName="ngModel" />
+                    <div *ngIf="
+                      !specializationName?.valid &&
+                      (specializationName?.dirty || specializationName?.touched)
+                    " class="error">
+                        <div *ngIf="specializationName.errors?.['required']" class="text-danger">
+                            Specialization Name is required
+                        </div>
+                        <div *ngIf="specializationName.errors?.['specializationName']" class="text-danger">
+                            Invalid Specialization Name
+                        </div>
+                    </div>
+                </div>
+                <div class="input__box">
+                    <label for="cmnStatusId" class="form-label">Status</label><br />
+                    <select id="cmnStatusId" class="form-select" name="cmnStatusId" required
+                        [(ngModel)]="specialization.cmnStatusId" #cmnStatusId="ngModel"
+                        (change)="changeCmnStatus(cmnStatusId.value)">
+                        <option value="A">ACTIVE</option>
+                        <option value="I">IN-ACTIVE</option>
+                    </select>
+                    <div *ngIf="">
+                        <span class="text-danger">Status is required</span>
+                    </div>
+                </div>
+
+                <!-- <div class="input__box">
+                    <label class="form-label" for="groupContactNumber">Stream Name</label>
+                    <input type="text" id="streamId" class="form-control" name="streamId" required
+                        placeholder="Enter streamId " [(ngModel)]="specialization.streamName" #streamId="ngModel" />
+                    <div *ngIf="
+                      !streamId?.valid &&
+                      (streamId?.dirty || streamId?.touched)
+                    " class="error">
+                        <div *ngIf="streamId.errors?.['required']" class="text-danger">
+                            streamId is required
+                        </div>
+                        <div *ngIf="cmnStatusId.errors?.['streamId']" class="text-danger">
+                            Invalid streamId
+                        </div>
+                    </div>
+                </div> -->
+
+                <div class="row mb-4">
+                    <div class="col d-flex justify-content-center"></div>
+                    <div class="input__box" style="text-align: center">
+                        <span>
+                            <button type="submit" class="btn btn-warning btn-block mb-4">
+                                Update
+                            </button>
+                        </span>
+                        <span style="padding-left: 20%;">
+                            <button type="button" (click)="goToSpecializations()" class="btn btn-warningbtn-block mb-4">
+                                Cancel
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

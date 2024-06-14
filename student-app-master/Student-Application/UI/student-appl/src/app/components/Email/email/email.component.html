@@ -1,0 +1,45 @@
+<div class="email-form">
+  <h2>Email Form</h2>
+  <form (ngSubmit)="submitForm(emailForm)" #emailForm="ngForm" novalidate>
+    <div class="form-group">
+      <label for="to">To:<span style="color: red;">  * </span></label>
+      <input type="text" id="to" name="to" [(ngModel)]="email.toAddress" required emailMultiple>
+      <div *ngIf="emailForm.controls['to'].touched && emailForm.controls['to'].invalid" class="error-message">
+        <div *ngIf="emailForm.controls['to'].errors?.['required']">To email is required.</div>
+        <!-- <div *ngIf="emailForm.controls['to'].touched && emailForm.controls['to'].errors?.['emailMultiple']">
+          Please enter valid email addresses separated by semicolons (;).
+        </div> -->
+              
+      </div>
+      <span style="color: rgb(192, 191, 191);"> Use semicolon(;) to separate multiple emails</span>
+    </div>
+    
+    <div class="form-group">
+      <label for="cc">CC:</label>
+      <input type="email" id="cc" name="cc" [(ngModel)]="email['ccAddress']" email>
+      <div *ngIf="emailForm.controls['cc'].touched && emailForm.controls['cc'].invalid" class="error-message">
+        <div *ngIf="emailForm.controls['cc'].errors?.['email']">Please enter a valid email address.</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="subject">Subject:<span style="color: red;">  * </span></label>
+      <input type="text" id="subject" name="subject" [(ngModel)]="email['emailsubject']" required minlength="5">
+      <div *ngIf="emailForm.controls['subject'].touched && emailForm.controls['subject'].invalid" class="error-message">
+        <div *ngIf="emailForm.controls['subject'].errors?.['required']">Subject is required.</div>
+        <div *ngIf="emailForm.controls['subject'].errors?.['minlength']">Subject must be at least 5 characters long.
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="body">Body:<span style="color: red;">  * </span></label>
+      <textarea id="body" name="body" rows="6" [(ngModel)]="email['emailBody']" required></textarea>
+      <div *ngIf="emailForm.controls['body'].touched && emailForm.controls['body'].invalid" class="error-message">
+        <div *ngIf="emailForm.controls['body'].errors?.['required']">Body is required.</div>
+      </div>
+    </div>
+    <div class="button-group">
+      <button type="submit" [disabled]="!emailForm.form.valid">Send</button>
+      <button type="button" (click)="resetForm()">Reset</button>
+    </div>
+  </form>
+</div>

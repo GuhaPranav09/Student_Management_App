@@ -1,0 +1,80 @@
+
+Data base name : student_app
+
+CREATE TABLE `cmn_status` (
+  `cmn_status_id` varchar(1) NOT NULL,
+  `cmn_status_name` varchar(200) NOT NULL,
+  PRIMARY KEY (`cmn_status_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `std_status` (
+  `std_status_id` varchar(1) NOT NULL,
+  `std_status_name` varchar(200) NOT NULL,
+  PRIMARY KEY (`std_status_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `Interested_in` (
+  `Interested_in_id` int NOT NULL AUTO_INCREMENT,
+  `Interested_in_name` varchar(355) NOT NULL,
+  `cmn_status_id` varchar(1) NOT NULL,
+  PRIMARY KEY (`Interested_in_id`),
+  KEY `fk_intrested_cmn_status_id_idx` (`cmn_status_id`),
+  CONSTRAINT `fk_intrested_cmn_status_id` FOREIGN KEY (`cmn_status_id`) REFERENCES `cmn_status` (`cmn_status_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `stream` (
+  `stream_id` int NOT NULL AUTO_INCREMENT,
+  `stream_name` varchar(200) NOT NULL,
+  `cmn_status_id` varchar(1) NOT NULL,
+  PRIMARY KEY (`stream_id`),
+  KEY `fk_stream_1_idx` (`cmn_status_id`),
+  CONSTRAINT `fk_stream_1` FOREIGN KEY (`cmn_status_id`) REFERENCES `cmn_status` (`cmn_status_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE specialization (
+  specialization_id int NOT NULL AUTO_INCREMENT,
+  specialization_name varchar(200) NOT NULL,
+  stream_id int NOT NULL,
+  cmn_status_id varchar(1) NOT NULL,
+  PRIMARY KEY (specialization_id,stream_id),
+  KEY fk_stream_id_idx (stream_id),
+  KEY fk_cmn_status_id_idx (cmn_status_id),
+  CONSTRAINT fk_cmn_status_id FOREIGN KEY (cmn_status_id) REFERENCES cmn_status (cmn_status_id),
+  CONSTRAINT fk_stream_id FOREIGN KEY (stream_id) REFERENCES stream (stream_id)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `student` (
+  `std_id` int NOT NULL AUTO_INCREMENT,
+  `std_name` varchar(355) NOT NULL,
+  `year_of_pass` varchar(5) NOT NULL,
+  `stream_id` int NOT NULL,
+  `specialization_id` int DEFAULT NULL,
+  `qual_percentage` varchar(5) NOT NULL,
+  `contact_no` varchar(15) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `refered_by` varchar(30) DEFAULT NULL,
+  `address` varchar(500) NOT NULL,
+  `std_status_id` varchar(1) NOT NULL,
+  `amount_paid` decimal(38,2) DEFAULT NULL,
+  `interested_in_id` int DEFAULT NULL,
+  `date_of_join` datetime(6) DEFAULT NULL,
+  `status` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`std_id`),
+  KEY `fk_student_stream_idx` (`stream_id`),
+  KEY `fk_student_4_idx` (`std_status_id`),
+  KEY `fk_student_3_idx` (`interested_in_id`),
+  CONSTRAINT `fk_student_1` FOREIGN KEY (`stream_id`) REFERENCES `stream` (`stream_id`),
+  CONSTRAINT `fk_student_3` FOREIGN KEY (`interested_in_id`) REFERENCES `interested_in` (`interested_in_id`),
+  CONSTRAINT `fk_student_4` FOREIGN KEY (`std_status_id`) REFERENCES `std_status` (`std_status_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+CREATE TABLE `user` (
+  `user_id` int NOT NULL,
+  `user_name` varchar(200) NOT NULL,
+  `user_email` varchar(45) NOT NULL,
+  `user_contact` varchar(15) NOT NULL,
+  `cmn_status_id` varchar(1) NOT NULL,
+  PRIMARY KEY (`user_id`),
+  KEY `fk_user_1_idx` (`cmn_status_id`),
+  CONSTRAINT `fk_user_1` FOREIGN KEY (`cmn_status_id`) REFERENCES `cmn_status` (`cmn_status_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

@@ -1,0 +1,160 @@
+<section>
+  <div class="container d-flex justify-content-center align-items-center">
+    <div class="row d-flex justify-content-center align-items-center" *ngIf="isLogin && !isForgotPassword && !forOtp">
+      <div class="col-md-6">
+        <img src="../../assets/login-image.webp" class="img-fluid" alt="Image" />
+      </div>
+      <div class="col-md-6">
+        <div class="login-form">
+          <h2 class="text-primary">Login</h2>
+          <form #form="ngForm" (submit)="loginUser(form)">
+            <div class="form-group division">
+              <label for="email">Email address:</label>
+              <input type="email" id="email" class="form-control" name="email" required placeholder="Enter Email"
+                [(ngModel)]="userLogin.email" #email="ngModel" email="true" />
+              <div *ngIf="!email?.valid && (email?.dirty || email?.touched)" class="error">
+                <div *ngIf="email.errors?.['required'] " class="text-danger">
+                  Email is required
+                </div>
+                <div *ngIf="email.errors?.['email'] || email.invalid" class="text-danger">
+                  Invalid mail
+                </div>
+              </div>
+            </div>
+            <div class="form-group division">
+              <label for="pwd">Password: </label>
+              <input type="password" id="pwd" class="form-control" name="password" placeholder="Password"
+                [(ngModel)]="userLogin.password" required #pass="ngModel" />
+              <div *ngIf="!pass?.valid && (pass?.dirty || pass?.touched)" class="error">
+                <div *ngIf="pass.errors?.['required']" class="text-danger">
+                  Password is required
+                </div>
+              </div>
+            </div>
+           
+           
+            <div class="form-group division d-flex justify-content-around pt-2" >
+              <div class="form-group division">
+                <button type="submit" class="btn btn-primary">Login</button>
+              </div>
+              <!-- <div>
+                New User?
+                <span (click)="Register()" class="links ms-2"
+                  ><a>Sign Up</a></span
+                >
+              </div> -->
+
+              <div >
+                <span (click)="forgotPassword()" class="links" style=" cursor: pointer; "><a>Forgot Passsword ?</a></span>
+              </div>
+            </div>
+          
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="containermain" *ngIf="!isLogin">
+      <div class="form">
+        <h2 class="text-center"><span class="pe-1"> </span> {{ Titile }}</h2>
+        <form #form="ngForm" *ngIf="
+            isForgotPassword || (!isLogin && !forOtp && !this.forNewPassword)
+          " (ngSubmit)="sendResetPasswordEmail(form)" novalidate>
+          <div class="input__box">
+            <label class="form-label" for="forgotPasswordEmail">Email</label>
+            <input type="email" id="forgotPasswordEmail" class="form-control" name="forgotPasswordEmail" required
+              placeholder="Enter Email" [(ngModel)]="forgotPasswordEmail" #forgotPasswordEmailInput="ngModel" />
+            <div *ngIf="
+                !forgotPasswordEmailInput?.valid &&
+                (forgotPasswordEmailInput?.dirty ||
+                  forgotPasswordEmailInput?.touched)
+              " class="error">
+              <div *ngIf="forgotPasswordEmailInput.errors?.['required']" class="text-danger">
+                Email is required
+              </div>
+            </div>
+          </div>
+          <div class="row mb-4">
+            <div class="input__box" style="text-align: center">
+              <button type="submit" class="btn btn-warning btn-block mb-4">
+                Continue
+              </button>
+            </div>
+          </div>
+          <div class="text-center">
+            <h5 class="text-danger">{{ showMessage }}</h5>
+          </div>
+          <div style="text-align: right">
+            <a (click)="goToPwdChangePage()" class="btn-btn" style="cursor: pointer;">I have OTP</a>
+          </div>
+          <div style="text-align: right">
+            <a (click)="forgotPassword()" class="btn-btn" style="cursor: pointer;">Back to Login</a>
+          </div>
+        </form>
+        <form #form="ngForm" *ngIf="forOtp || (!isForgotPassword && !isLogin && !forNewPassword)"
+          (ngSubmit)="verifyOtp(form)" novalidate>
+          <div class="input__box">
+            <label class="form-label" for="forgotPasswordEmail">Email</label>
+            <input type="email" id="forgotPasswordEmail" class="form-control" name="forgotPasswordEmail" required
+              placeholder="Enter Email" [(ngModel)]="forgotPasswordEmail" #forgotPasswordEmailInput="ngModel" />
+            <div *ngIf="
+                !forgotPasswordEmailInput?.valid &&
+                (forgotPasswordEmailInput?.dirty ||
+                  forgotPasswordEmailInput?.touched)
+              " class="error">
+              <div *ngIf="forgotPasswordEmailInput.errors?.['required']" class="text-danger">
+                Email is required
+              </div>
+            </div>
+          </div>
+          <div class="input__box" *ngIf="otpvalid">
+            <label class="form-label" for="otp">Enter OTP</label>
+            <input type="text" id="otp" class="form-control" name="otp" required placeholder="Enter OTP"
+              [(ngModel)]="otp" #otpInput="ngModel" />
+            <div *ngIf="!otpInput?.valid && (otpInput?.dirty || otpInput?.touched)" class="error">
+              <div *ngIf="otpInput.errors?.['required']" class="text-danger">
+                OTP is required
+              </div>
+            </div>
+          </div>
+          <div class="row mb-4" *ngIf="otpInvalid">
+            <div class="input__box" style="text-align: center">
+              <button type="submit" class="btn btn-warning btn-block mb-4">
+                Submit
+              </button>
+            </div>
+          </div>
+
+          <div class="text-center" *ngIf="otpInvalid">
+            <h5 class="text-danger">{{ showMessage }}</h5>
+          </div>
+          <div class="input__box" *ngIf="!otpInvalid">
+            <label class="form-label" for="newPassword">Enter New Password</label>
+            <input type="password" id="newPassword" class="form-control" name="newPassword" required
+              placeholder="Enter New Password" [(ngModel)]="newPassword" #newPasswordInput="ngModel" />
+            <div *ngIf="
+                !newPasswordInput?.valid &&
+                (newPasswordInput?.dirty || newPasswordInput?.touched)
+              " class="error">
+              <div *ngIf="newPasswordInput.errors?.['required']" class="text-danger">
+                Password is required
+              </div>
+            </div>
+          </div>
+          <div class="row mb-4" *ngIf="!otpInvalid">
+            <div class="input__box" style="text-align: center">
+              <button type="submit" class="btn btn-warning btn-block mb-4">
+                Confirm
+              </button>
+            </div>
+          </div>
+          <div style="text-align: right">
+            <a (click)="backToForgotPassword()" class="btn-btn">Back to Forgot Password</a>
+          </div>
+          <div class="text-center" *ngIf="!otpInvalid">
+            <h5 class="text-success">{{ showMessage }}</h5>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

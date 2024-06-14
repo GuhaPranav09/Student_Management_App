@@ -1,0 +1,150 @@
+<div class="box">
+  <div class="container">
+    <div class="form">
+      <h2 class="text-center">Add User</h2>
+      <form #form="ngForm" (ngSubmit)="addUser(form)" novalidate>
+        <div class="input__box">
+          <label class="form-label" for="name">User Name</label>
+          <input
+            type="text"
+            id="name"
+            class="form-control"
+            name="name"
+            required
+            placeholder="enter eser name"
+            [(ngModel)]="user.name"
+            #name="ngModel"
+          />
+          <div
+            *ngIf="!name?.valid && (name?.dirty || name?.touched)"
+            class="error"
+          >
+            <div *ngIf="name.errors?.['required']" class="text-danger">
+              User Name is required
+            </div>
+          </div>
+        </div>
+        <div class="input__box">
+          <label class="form-label" for="userEmail">Email</label>
+          <input
+            type="email"
+            id="email"
+            class="form-control"
+            name="userEmail"
+            required
+            placeholder="enter email"
+            [(ngModel)]="user.userEmail"
+            #userEmail="ngModel"
+            email="true"
+          />
+          <div
+            *ngIf="
+              !userEmail?.valid && (userEmail?.dirty || userEmail?.touched)
+            "
+            class="error"
+          >
+            <div *ngIf="userEmail.errors?.['required']" class="text-danger">
+              User Email required
+            </div>
+            <div
+              *ngIf="userEmail.errors?.['userEmail'] || userEmail.invalid"
+              class="text-danger"
+            >
+              Invalid Email
+            </div>
+          </div>
+        </div>
+        <div class="input__box">
+          <label class="form-label" for="userContact">Contact Number</label>
+          <input
+            type="text"
+            id="userContact"
+            class="form-control"
+            name="userContact"
+            required
+            placeholder="enter contact number"
+            [(ngModel)]="user.userContact"
+            #userContact="ngModel"
+            pattern="\d{10}"
+          />
+          <div
+            *ngIf="
+              !userContact?.valid &&
+              (userContact?.dirty || userContact?.touched)
+            "
+            class="error"
+          >
+            <div *ngIf="userContact.errors?.['required']" class="text-danger">
+              Contact Number is required
+            </div>
+            <div *ngIf="userContact.errors?.['pattern']" class="text-danger">
+              Contact Number should be 10 digits
+            </div>
+            <div
+              *ngIf="userContact.errors?.['userContact']"
+              class="text-danger"
+            >
+              Invalid Contact Number
+            </div>
+          </div>
+          <div class="input__box">
+            <label class="form-label" for="userPassword">Passsword</label>
+            <input
+              type="userPassword"
+              id="text"
+              class="form-control"
+              name="userPassword"
+              required
+              placeholder="enter email"
+              [(ngModel)]="user.userPassword"
+              #userPassword="ngModel"
+            />
+            <div
+              *ngIf="
+                !userPassword?.valid &&
+                (userPassword?.dirty || userPassword?.touched)
+              "
+              class="error"
+            >
+              <div
+                *ngIf="userPassword.errors?.['required']"
+                class="text-danger"
+              >
+                Password required
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mb-4">
+          <div class="col d-flex justify-content-center"></div>
+          <div class="input__box" style="text-align: center">
+            <span>
+              <button
+                type="submit"
+                class="btn btn-warning btn-block mb-4"
+                [disabled]="!form.touched"
+              >
+                Save
+              </button>
+            </span>
+            <span style="padding-left: 20%">
+              <button type="reset" class="btn btn-warning btn-block mb-4">
+                Reset
+              </button>
+            </span>
+          </div>
+        </div>
+        <div class="input__box" style="text-align: center">
+          <button
+            type="reset"
+            (click)="backToLogin()"
+            class="btn btn-success btn-block mb-4"
+          >
+            Back to Login
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

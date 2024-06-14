@@ -1,0 +1,46 @@
+<div class="text-center pb-3">
+	<h3>interestedIn</h3>
+</div>
+<div>
+	<button (click)="addInterestedIn()" class="btn btn-primary">Add interestedIn</button>
+</div>
+<br>
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th scope="col">#</th>
+			<th scope="col"> NAME</th>
+			<th scope="col"> STATUS</th>
+			<th scope="col">ACTIONS</th>
+			<!--abcd-->
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let interestedIn of interestedIn; index as i">
+			<th scope="row">{{ i + 1 }}</th>
+			 <td>{{ interestedIn.interestedInName }}</td> 
+			 <td>
+				<span
+				  class="badge"
+				  [ngClass]="[
+					interestedIn.cmnStatusId == 'A' ? ' text-bg-success' : ' text-bg-danger'
+				  ]"
+				  >{{
+					interestedIn.cmnStatusId === "A"
+					  ? "ACTIVE"
+					  : interestedIn.cmnStatusId === "I"
+					  ? "INACTIVE"
+					  : ""
+				  }}</span
+				>
+			  </td>
+			 
+			<!--start-->
+			<td>
+				<i (click)="editInterestedIn(interestedIn)" class="bi bi-pencil"></i>
+				<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <!-- Space between icons -->
+				<i (click)="removeInterestedIn(interestedIn.interestedInId)" class="bi bi-trash text-danger" *ngIf="interestedIn.cmnStatusId !== 'I'"></i>
+			</td>
+		</tr>
+	</tbody>
+</table>

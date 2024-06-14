@@ -1,0 +1,72 @@
+<div class="box">
+  <div class="container">
+    <div class="form">
+      <h2>Add Specialization</h2>
+      <form #form="ngForm" (ngSubmit)="addSpecialization(form)" novalidate>
+        <div class="input__box col-6">
+          <label for="streamId" class="form-label">Stream Name</label><br />
+          <select id="streamId" class="form-control" name="streamId" required [(ngModel)]="specialization.streamId" 
+            #streamId="ngModel">
+            <option *ngFor="let stream of streams" [value]="stream.streamId">
+              {{ stream.streamName }}
+            </option>
+          </select>
+          <div *ngIf="">
+            <span class="text-danger">Stream is required</span>
+          </div>
+        </div>
+
+
+
+        <div class="input__box">
+          <label class="form-label" for="form2Example1">Specialization Name</label>
+          <input type="text" id="specializationName" class="form-control" name="specializationName" required
+            placeholder="Enter Specialization Name" [(ngModel)]="specialization.specializationName"
+            #specializationName="ngModel" />
+          <div *ngIf="
+                !specializationName?.valid &&
+                (specializationName?.dirty || specializationName?.touched)
+              " class="error">
+            <div *ngIf="specializationName.errors?.['required']" class="text-danger">
+              Specialization Name is required
+            </div>
+            <div *ngIf="specializationName.errors?.['specializationName']" class="text-danger">
+              Invalid Specialization Name
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+
+        <div class="row mb-4">
+          <div class="col d-flex justify-content-center"></div>
+          <div class="input__box d-flex" style="text-align: center">
+            <span>
+              <button type="submit" class="btn btn-warning btn-block mb-4">
+                Save
+              </button>
+            </span>
+            <span style="padding-left: 5%">
+              <button type="reset" class="btn btn-warning btn-block mb-4">
+                reset
+              </button>
+            </span>
+            <span style="padding-left: 5%">
+              <button type="reset" (click)="gotoSpecialization()" class="btn btn-warning mb-4" style="padding:6px;">
+                Back to Specializations
+              </button>
+            </span>
+          </div>
+        </div>
+      </form>
+      <!-- <div class="input__box" style="text-align: center">
+        <button type="reset" (click)="gotoSpecialization()" class="btn btn-warning btn-block mb-4">
+          Back to Specializations
+        </button>
+      </div> -->
+    </div>
+  </div>
+</div>
